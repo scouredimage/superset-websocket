@@ -18,7 +18,7 @@
  */
 import * as http from 'http';
 import * as net from 'net';
-import WebSocket from 'ws';
+import WebSocket, { WebSocketServer } from 'ws';
 import { v4 as uuidv4 } from 'uuid';
 import jwt, { Algorithm } from 'jsonwebtoken';
 import cookie from 'cookie';
@@ -141,7 +141,7 @@ export const buildRedisOpts = (baseConfig: RedisConfig) => {
 // initialize servers
 const redis = new Redis(buildRedisOpts(opts.redis));
 const httpServer = http.createServer();
-export const wss = new WebSocket.Server({
+export const wss = new WebSocketServer({
   noServer: true,
   clientTracking: false,
 });
