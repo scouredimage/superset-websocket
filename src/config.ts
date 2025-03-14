@@ -27,6 +27,7 @@ export interface RedisConfig {
   db: number;
   ssl: boolean;
   validateHostname: boolean;
+  cluster: boolean;
 }
 
 type ConfigType = {
@@ -81,6 +82,7 @@ function defaultConfig(): ConfigType {
       db: 0,
       ssl: false,
       validateHostname: true,
+      cluster: false,
     },
   };
 }

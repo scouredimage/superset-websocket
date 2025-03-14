@@ -138,8 +138,38 @@ export const buildRedisOpts = (baseConfig: RedisConfig) => {
   return redisOpts;
 };
 
+export const redisConnect = (redisConfig: RedisConfig) => {
+  const baseOpts = buildRedisOpts(redisConfig);
+
+  if (!redisConfig.cluster) {
+    return new Redis(baseOpts);
+  }
+
+  const redisOpts = {
+    redisOptions: {
+      tls: baseOpts.tls,
+    }
+  }
+  if (redisConfig.password !== '') {
+    redisOpts.redisOptions = {
+      ...redisOpts.redisOptions,
+      username: redisConfig.username,
+      password: redisConfig.password,
+    }
+  }
+
+  return new Redis.Cluster(
+    [{
+      host: redisConfig.host,
+      port: redisConfig.port,
+      db: redisConfig.db,
+    }],
+    redisOpts
+  );
+}
+
 // initialize servers
-const redis = new Redis(buildRedisOpts(opts.redis));
+const redis = redisConnect(buildRedisOpts(opts.redis));
 const httpServer = http.createServer();
 export const wss = new WebSocketServer({
   noServer: true,
