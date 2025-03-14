@@ -158,6 +158,7 @@ export const redisConnect = (redisConfig: RedisConfig) => {
     }
   }
 
+  logger.info(`Connecting to Redis cluster: ${redisConfig.host}:${redisConfig.port}`);
   return new Redis.Cluster(
     [{
       host: redisConfig.host,
