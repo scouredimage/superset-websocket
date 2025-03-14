@@ -141,6 +141,7 @@ export const buildRedisOpts = (baseConfig: RedisConfig) => {
 export const redisConnect = (redisConfig: RedisConfig) => {
   const baseOpts = buildRedisOpts(redisConfig);
 
+  logger.info(`Redis cluster? ${redisConfig.cluster} ${!redisConfig.cluster}`);
   if (!redisConfig.cluster) {
     return new Redis(baseOpts);
   }
