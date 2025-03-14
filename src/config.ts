@@ -128,6 +128,7 @@ function applyEnvOverrides(config: ConfigType): ConfigType {
     REDIS_USERNAME: val => (config.redis.username = val),
     REDIS_DB: val => (config.redis.db = toNumber(val)),
     REDIS_SSL: val => (config.redis.ssl = toBoolean(val)),
+    REDIS_CLUSTER: val => (config.redis.cluster = toBoolean(val)),
     STATSD_HOST: val => (config.statsd.host = val),
     STATSD_PORT: val => (config.statsd.port = toNumber(val)),
     STATSD_GLOBAL_TAGS: val => (config.statsd.globalTags = toStringArray(val)),

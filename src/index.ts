@@ -171,7 +171,7 @@ export const redisConnect = (redisConfig: RedisConfig) => {
 }
 
 // initialize servers
-const redis = redisConnect(buildRedisOpts(opts.redis));
+const redis = redisConnect(opts.redis);
 const httpServer = http.createServer();
 export const wss = new WebSocketServer({
   noServer: true,
