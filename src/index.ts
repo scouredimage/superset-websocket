@@ -433,6 +433,7 @@ export const httpUpgrade = (
     socket,
     head,
     function cb(ws: WebSocket, request: http.IncomingMessage) {
+      logger.debug('onUpgrade', ws, request);
       wss.emit('connection', ws, request);
     },
   );
@@ -498,7 +499,17 @@ export const cleanChannel = (channel: string) => {
 
 if (startServer) {
   // init server event listeners
+  wss.on('error', function (err) {
+    logger.error('onError', err);
+  });
+  wss.on('open', function () {
+    logger.debug('onOpen');
+  });
+  wss.on('close', function () {
+    logger.debug('onClose');
+  });
   wss.on('connection', function (ws) {
+    logger.debug('onConnection', ws);
     ws.on('error', console.error);
   });
   wss.on('connection', wsConnection);
